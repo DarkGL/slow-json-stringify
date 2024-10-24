@@ -48,9 +48,9 @@ const _makeArraySerializer = (serializer) => {
     return (array) => JSON.stringify(array);
 };
 
-const TYPES = ['number', 'string', 'boolean', 'array', 'null'];
+const TYPES = ['number', 'string', 'boolean', 'array', 'null'] as const
 
-const attr = (type, serializer) => {
+const attr = (type: typeof TYPES[number], serializer: <T>(valueSerializer: T) => T | undefined) => {
     if (!TYPES.includes(type)) {
         throw new Error(
             `Expected one of: "number", "string", "boolean", "null". received "${type}" instead`,

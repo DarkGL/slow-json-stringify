@@ -2,7 +2,7 @@ import _makeChunks from './_makeChunks';
 import _makeQueue from './_makeQueue';
 import _prepare from './_prepare';
 import _select from './_select';
-import { attr, escape } from './_utils';
+import { attr, escape, _find } from './_utils';
 
 // Doing a lot of preparation work before returning the final function responsible for
 // the stringification.
