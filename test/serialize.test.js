@@ -12,53 +12,53 @@ const { expect, spy } = chai;
  */
 
 describe('Serialization and validation support tests', () => {
-  it('invoke a function while serializing single property', () => {
-    function serializer() {}
+    it('invoke a function while serializing single property', () => {
+        function serializer() {}
 
-    const spySerializer = spy(serializer);
+        const spySerializer = spy(serializer);
 
-    const stringify = sjs({
-      a: attr('string', spySerializer),
+        const stringify = sjs({
+            a: attr('string', spySerializer),
+        });
+
+        stringify({ a: 'hello' });
+
+        expect(spySerializer).to.have.been.called(1);
     });
 
-    stringify({ a: 'hello' });
+    it('invoke serializer providing raw property', () => {
+        function serializer(raw) {
+            expect(raw).to.equal('hello');
+        }
 
-    expect(spySerializer).to.have.been.called(1);
-  });
+        const spySerializer = spy(serializer);
 
-  it('invoke serializer providing raw property', () => {
-    function serializer(raw) {
-      expect(raw).to.equal('hello');
-    }
+        const stringify = sjs({
+            a: attr('string', spySerializer),
+        });
 
-    const spySerializer = spy(serializer);
+        stringify({ a: 'hello' });
 
-    const stringify = sjs({
-      a: attr('string', spySerializer),
+        expect(spySerializer).to.have.been.called(1);
     });
 
-    stringify({ a: 'hello' });
+    it('skip property serialization when serializer return undefined', () => {
+        const stringify = sjs({
+            a: attr('string', () => undefined),
+            b: attr('number', () => undefined),
+        });
 
-    expect(spySerializer).to.have.been.called(1);
-  });
+        const empty = stringify({ a: 'hello', b: 42 });
 
-  it('skip property serialization when serializer return undefined', () => {
-    const stringify = sjs({
-      a: attr('string', () => undefined),
-      b: attr('number', () => undefined),
+        expect(empty).to.equal('{}');
     });
 
-    const empty = stringify({ a: 'hello', b: 42 });
+    it('serialize returned value from serializer', () => {
+        const stringify = sjs({
+            a: attr('string', (raw) => (raw === 'hello' ? 'world' : 'pino')),
+        });
 
-    expect(empty).to.equal('{}');
-  });
-
-  it('serialize returned value from serializer', () => {
-    const stringify = sjs({
-      a: attr('string', raw => raw === 'hello' ? 'world' : 'pino'),
+        expect(stringify({ a: 'hello' })).to.equal('{"a":"world"}');
+        expect(stringify({ a: 'ginetto' })).to.equal('{"a":"pino"}');
     });
-
-    expect(stringify({ a: 'hello' })).to.equal('{"a":"world"}');
-    expect(stringify({ a: 'ginetto' })).to.equal('{"a":"pino"}');
-  });
 });

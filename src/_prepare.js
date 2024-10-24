@@ -1,4 +1,3 @@
-
 /**
  * `_prepare` - aims to normalize the schema provided by the user.
  * It will convert the schema in both a parseable string and an object
@@ -6,17 +5,17 @@
  * @param {object} schema - user provided schema
  */
 const _prepare = (schema) => {
-  const preparedString = JSON.stringify(schema, (_, value) => {
-    if (!value.isSJS) return value;
-    return `${value.type}__sjs`;
-  });
+    const preparedString = JSON.stringify(schema, (_, value) => {
+        if (!value.isSJS) return value;
+        return `${value.type}__sjs`;
+    });
 
-  const preparedSchema = JSON.parse(preparedString);
+    const preparedSchema = JSON.parse(preparedString);
 
-  return {
-    preparedString,
-    preparedSchema,
-  };
+    return {
+        preparedString,
+        preparedSchema,
+    };
 };
 
 export default _prepare;

@@ -1,4 +1,3 @@
-
 /**
  * `_find` is a super fast deep property finder.
  * It dynamically build the function needed to reach the desired
@@ -11,16 +10,16 @@
  * @param {array} path - path to reach object property.
  */
 const _find = (path) => {
-  const { length } = path;
+    const { length } = path;
 
-  let str = 'obj';
+    let str = 'obj';
 
-  for (let i = 0; i < length; i++) {
-    str = str.replace(/^/, '(');
-    str += ` || {}).${path[i]}`;
-  }
+    for (let i = 0; i < length; i++) {
+        str = str.replace(/^/, '(');
+        str += ` || {}).${path[i]}`;
+    }
 
-  return eval(`((obj) => ${str})`);
+    return eval(`((obj) => ${str})`);
 };
 
 /**
@@ -31,55 +30,48 @@ const _find = (path) => {
  * @param {any} method - `sjs` serializer.
  */
 const _makeArraySerializer = (serializer) => {
-  if (serializer instanceof Function) {
-    return (array) => {
-      // Stringifying more complex array using the provided sjs schema
-      let acc = '';
-      const { length } = array;
-      for (let i = 0; i < length - 1; i++) {
-        acc += `${serializer(array[i])},`;
-      }
+    if (serializer instanceof Function) {
+        return (array) => {
+            // Stringifying more complex array using the provided sjs schema
+            let acc = '';
+            const { length } = array;
+            for (let i = 0; i < length - 1; i++) {
+                acc += `${serializer(array[i])},`;
+            }
 
-      // Prevent slice for removing unnecessary comma.
-      acc += serializer(array[length - 1]);
-      return `[${acc}]`;
-    };
-  }
+            // Prevent slice for removing unnecessary comma.
+            acc += serializer(array[length - 1]);
+            return `[${acc}]`;
+        };
+    }
 
-  return array => JSON.stringify(array);
+    return (array) => JSON.stringify(array);
 };
 
-const TYPES = [
-  'number',
-  'string',
-  'boolean',
-  'array',
-  'null',
-];
+const TYPES = ['number', 'string', 'boolean', 'array', 'null'];
 
 const attr = (type, serializer) => {
-  if (!TYPES.includes(type)) {
-    throw new Error(`Expected one of: "number", "string", "boolean", "null". received "${type}" instead`);
-  }
+    if (!TYPES.includes(type)) {
+        throw new Error(
+            `Expected one of: "number", "string", "boolean", "null". received "${type}" instead`,
+        );
+    }
 
-  const usedSerializer = serializer || (value => value);
+    const usedSerializer = serializer || ((value) => value);
 
-  return {
-    isSJS: true,
-    type,
-    serializer: type === 'array'
-      ? _makeArraySerializer(serializer)
-      : usedSerializer,
-  };
+    return {
+        isSJS: true,
+        type,
+        serializer: type === 'array' ? _makeArraySerializer(serializer) : usedSerializer,
+    };
 };
 
 // Little utility for escaping convenience.
 // => if no regex is provided, a default one will be used.
-const defaultRegex = new RegExp('\\n|\\r|\\t|\\"|\\\\', 'gm');
-const escape = (regex = defaultRegex) => str => str.replace(regex, char => '\\' + char);
+const defaultRegex = /\n|\r|\t|\"|\\/gm;
+const escape =
+    (regex = defaultRegex) =>
+    (str) =>
+        str.replace(regex, (char) => '\\' + char);
 
-export {
-  _find,
-  escape,
-  attr,
-};
+export { _find, escape, attr };
