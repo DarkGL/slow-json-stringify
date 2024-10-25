@@ -1,11 +1,11 @@
-const { expect } = require('chai');
-const { sjs } = require('../dist/sjs');
+import { expect } from 'chai';
+import { sjs } from '../dist/sjs.js';
 
 /**
  * Testing undefined property support with complex structures.
  */
 
-const data = require('../test/data');
+const data = require('../test/data.js');
 
 Object.keys(data).forEach((record) => {
   const { schema, obj } = data[record];

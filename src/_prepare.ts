@@ -1,4 +1,4 @@
-import type { SjsSchema } from "./types.js";
+import type { PreparedSchema, SjsSchema } from './types.js';
 
 /**
  * `_prepare` - aims to normalize the schema provided by the user.
@@ -12,7 +12,7 @@ const _prepare = (schema: SjsSchema) => {
         return `${value.type}__sjs`;
     });
 
-    const preparedSchema = JSON.parse(preparedString) as { [prop: string]: object }
+    const preparedSchema = JSON.parse(preparedString) as PreparedSchema;
 
     return {
         preparedString,
@@ -20,4 +20,4 @@ const _prepare = (schema: SjsSchema) => {
     };
 };
 
-export default _prepare;
+export { _prepare };

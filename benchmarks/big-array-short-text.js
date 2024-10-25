@@ -2,10 +2,8 @@
  * Testing `SJS` performance against native `JSON.stringify` and the fastest
  * stringifier in town `fast-json-stringify`
 */
-const Benchmark = require('benchmark');
-
-const fjs = require('fast-json-stringify');
-const { sjs, attr  } = require('../dist/sjs');
+import Benchmark from 'benchmark';
+import { sjs, attr } from '../dist/sjs.js';
 
 const suite = new Benchmark.Suite;
 
@@ -13,9 +11,9 @@ const suite = new Benchmark.Suite;
 const obj = {
   hello: 'pretty big object here',
   test: Array(1000).fill(0).map(() => ({
-    a: Math.random() * 12345678901412341,
-    b: Math.random() * 12345678901412341,
-    c: Math.random() * 12345678901412341,
+    a: Math.random().toString(36),
+    b: Math.random().toString(36),
+    c: Math.random().toString(36),
   })),
 };
 
@@ -24,11 +22,12 @@ const obj = {
 const slowStringify = sjs({
   hello: attr('string'),
   test: attr('array', sjs({
-    a: attr('number'),
-    b: attr('number'),
-    c: attr('number'),
+    a: attr('string'),
+    b: attr('string'),
+    c: attr('string'),
   })),
 });
+
 
 const res = [];
 
@@ -39,6 +38,7 @@ const percentageDiff = (arr) => {
 
 console.log('```bash');
 
+// console.log(slowStringify(obj));
 suite
   .add('native', () => JSON.stringify(obj))
   .add('slow-json-stringify', () => slowStringify(obj))
@@ -53,10 +53,10 @@ suite
   })
   .run();
 
-// `SJS` 2x faster than native
+// `SJS` only slightly faster => not worth it for this use case.
 
-// native x 950 ops/sec ±1.07% (89 runs sampled)
+// native x 3,351 ops/sec ±0.81% (85 runs sampled)
 // fast-json-stringify N/A => dynamic arrais not supported
-// slow-json-stringify x 1,944 ops/sec ±2.78% (90 runs sampled)
+// slow-json-stringify x 3,528 ops/sec ±2.86% (89 runs sampled)
 
 

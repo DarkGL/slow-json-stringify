@@ -1,4 +1,4 @@
-import type { AttrExecutable, AttrType, Serializer, SjsSerializer } from "./types.js";
+import type { AttrExecutable, AttrType, Serializer, SjsSerializer } from './types.js';
 
 /**
  * `_find` is a super fast deep property finder.
@@ -7,21 +7,20 @@ import type { AttrExecutable, AttrType, Serializer, SjsSerializer } from "./type
  *
  * e.g.
  * obj = {a: {b: {c: 1}}}
- * _find(['a','b','c']) => (obj) => (((obj || {}).a || {}).b || {}).c
+ * _find(['a','b','c']) => (obj) => obj?.['a']?.['b']?.['c']
  *
  * @param {array} path - path to reach object property.
  */
 const _find = (path: string[]) => {
-    const { length } = path;
+    const length = path.length;
 
     let str = 'obj';
 
-    for (let i = 0; i < length; i++) {
-        str = str.replace(/^/, '(');
-        str += ` || {}).${path[i]}`;
+    for (let i = 0; i < length; ++i) {
+        str += `?.['${path[i]}']`;
     }
 
-    return eval(`((obj) => ${str})`);
+    return eval(`(obj=>${str})`);
 };
 
 /**
@@ -31,9 +30,9 @@ const _find = (path: string[]) => {
  * @param {array} array - Array to serialize.
  * @param {any} method - `sjs` serializer.
  */
-const _makeArraySerializer = (serializer): AttrExecutable => {
+const _makeArraySerializer = (serializer: Function | undefined): AttrExecutable => {
     if (serializer instanceof Function) {
-        return (array) => {
+        return (array: any) => {
             // Stringifying more complex array using the provided sjs schema
             let acc = '';
             const { length } = array;
@@ -47,10 +46,10 @@ const _makeArraySerializer = (serializer): AttrExecutable => {
         };
     }
 
-    return (array) => JSON.stringify(array);
+    return (array: any) => JSON.stringify(array);
 };
 
-const TYPES = ['number', 'string', 'boolean', 'array', 'null'] as const
+const TYPES = ['number', 'string', 'boolean', 'array', 'null'] as const;
 
 const attr: {
     (type: 'array', serializer?: SjsSerializer): AttrExecutable;

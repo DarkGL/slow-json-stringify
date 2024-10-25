@@ -1,3 +1,5 @@
+import type { Chunk } from './types.js';
+
 /**
  * `select` function takes all the possible chunks from the
  * current index and set the more appropriate one in relation
@@ -8,8 +10,8 @@
  * @param {any} value - value to serialize.
  * @param {number} index - position inside the queue.
  */
-const _select = (chunks) => (value, index) => {
-    const chunk = chunks[index];
+const _select = (chunks: Chunk[]) => (value: any, index: number) => {
+    const chunk = chunks[index]!;
 
     if (typeof value !== 'undefined') {
         if (chunk.flag) {
@@ -20,7 +22,7 @@ const _select = (chunks) => (value, index) => {
 
     // If the current value is undefined set a flag on the next
     // chunk stating that the previous prop is undefined.
-    chunks[index + 1].flag = true;
+    chunks[index + 1]!.flag = true;
 
     if (chunk.flag) {
         return chunk.bothUndef;
@@ -28,4 +30,4 @@ const _select = (chunks) => (value, index) => {
     return chunk.isUndef;
 };
 
-export default _select;
+export { _select };

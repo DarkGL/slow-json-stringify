@@ -2,10 +2,8 @@
  * Testing `SJS` performance against native `JSON.stringify` and the fastest
  * stringifier in town `fast-json-stringify`
 */
-const Benchmark = require('benchmark');
-
-const fjs = require('fast-json-stringify');
-const { sjs, attr } = require('../dist/sjs');
+import Benchmark from 'benchmark';
+import { sjs, attr } from '../dist/sjs.js';
 
 const suite = new Benchmark.Suite;
 

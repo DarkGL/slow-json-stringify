@@ -1,8 +1,8 @@
-import _makeChunks from './_makeChunks.js';
-import _makeQueue from './_makeQueue.js';
-import _prepare from './_prepare.js';
-import _select from './_select.js';
-import { attr, escape, _find } from './_utils.js';
+import { _makeChunks } from './_makeChunks.js';
+import { _makeQueue } from './_makeQueue.js';
+import { _prepare } from './_prepare.js';
+import { _select } from './_select.js';
+import { attr, escape } from './_utils.js';
 import type { SjsSchema, SjsSerializer } from './types.js';
 
 // Doing a lot of preparation work before returning the final function responsible for
@@ -15,30 +15,21 @@ const sjs = (schema: SjsSchema): SjsSerializer => {
     // during schema preparation => e.g. array stringification method.
     const queue = _makeQueue(preparedSchema, schema);
     const chunks = _makeChunks(preparedString, queue);
+    const chunkLength = chunks.length - 1;
     const selectChunk = _select(chunks);
-
-    const { length } = queue;
 
     // Exposed function
     return (obj) => {
         let temp = '';
 
-        // Ditching old implementation for a **MUCH** faster while
-        let i = 0;
-        while (true) {
-            if (i === length) {
-                break;
-            }
-            
+        for (let i = 0; i < queue.length; ++i) {
             const { serializer, find } = queue[i]!;
             const raw = find(obj);
 
             temp += selectChunk(serializer(raw), i);
-
-            i += 1;
         }
 
-        const { flag, pure, prevUndef } = chunks[chunks.length - 1]!;
+        const { flag, pure, prevUndef } = chunks[chunkLength]!;
 
         return temp + (flag ? prevUndef : pure);
     };

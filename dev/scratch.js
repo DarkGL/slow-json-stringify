@@ -1,4 +1,4 @@
-const { sjs, attr, escape } = require('../dist/sjs');
+import { sjs, attr } from '../dist/sjs.js';
 
 const stringify = sjs({
   a: attr('string', value => `${value} lol`),
@@ -9,6 +9,16 @@ const stringify = sjs({
   //   })),
   // }
   c: attr('array'),
+  d: attr('array', sjs({
+    b: attr('array'),
+    c: attr('array'),
+  })),
+  asd: 1,
+  x: {
+    y: {
+      z: attr('string')
+    }
+  }
 });
 
 console.log(stringify({
@@ -20,5 +30,13 @@ console.log(stringify({
     }, {
       l: 'lolllp'
     }],
-  }
+  },
+  d: [{
+    b: [{
+      asd: 'asd'
+    }],
+    c: [{
+      asd: 'asd'
+    }]
+  }],
 }));

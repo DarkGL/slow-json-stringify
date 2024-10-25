@@ -1,35 +1,38 @@
 /**
  * Testing `SJS` performance against native `JSON.stringify` and the fastest
  * stringifier in town `fast-json-stringify`
+ * 
+ * Testing for undefined properties.
 */
-const Benchmark = require('benchmark');
-
-const fjs = require('fast-json-stringify');
-const { sjs, attr } = require('../dist/sjs');
+import Benchmark from 'benchmark';
+import fjs from 'fast-json-stringify';
+import { sjs, attr } from '../dist/sjs.js';
 
 const suite = new Benchmark.Suite;
 
-// Building huge array with short properties
-const obj = {
-  hello: 'pretty big object here',
-  test: Array(1000).fill(0).map(() => ({
-    a: Math.random().toString(36),
-    b: Math.random().toString(36),
-    c: Math.random().toString(36),
-  })),
-};
+const obj = { hello: 'world', gino: 'The answer is 42', jimmy: undefined };
 
+// Fast-json-stringify schema
+const fastStringify = fjs({
+  type: 'object',
+  properties: {
+    hello: {
+      type: 'string',
+    },
+    gino: {
+      type: 'string',
+    },
+    jimmy: {
+      type: 'string',
+    },
+  },
+});
 
 // Slow-json-stringify schema
 const slowStringify = sjs({
   hello: attr('string'),
-  test: attr('array', sjs({
-    a: attr('string'),
-    b: attr('string'),
-    c: attr('string'),
-  })),
+  jimmy: attr('string'),
 });
-
 
 const res = [];
 
@@ -40,9 +43,9 @@ const percentageDiff = (arr) => {
 
 console.log('```bash');
 
-// console.log(slowStringify(obj));
 suite
   .add('native', () => JSON.stringify(obj))
+  .add('fast-json-stringify', () => fastStringify(obj))
   .add('slow-json-stringify', () => slowStringify(obj))
   .on('cycle', (event) => {
     res.push(Math.floor(event.target.hz));
@@ -54,11 +57,3 @@ suite
     console.log('\n```\n');
   })
   .run();
-
-// `SJS` only slightly faster => not worth it for this use case.
-
-// native x 3,351 ops/sec ±0.81% (85 runs sampled)
-// fast-json-stringify N/A => dynamic arrais not supported
-// slow-json-stringify x 3,528 ops/sec ±2.86% (89 runs sampled)
-
-
