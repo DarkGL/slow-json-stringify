@@ -1,12 +1,9 @@
 {
   "name": "slow-json-stringify",
-  "version": "2.0.1",
-  "description": "The slowest JSON stringifier in the galaxy (:",
-  "source": "src/sjs.mjs",
+  "version": "2.1.0",
+  "description": "The fastest JSON stringifier in the galaxy",
   "main": "dist/sjs.js",
-  "module": "dist/sjs.mjs",
-  "unpkg": "dist/sjs.umd.js",
-  "types": "index.d.ts",
+  "types": "dist/sjs.d.ts",
   "type": "module",
   "scripts": {
     "ci": "npm run build && npm run check && npm run check-exports",
@@ -23,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lucagez/slow-json-stringify.git"
+    "url": "git+https://github.com/DarkGL/slow-json-stringify.git"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.16.4",
@@ -47,14 +44,15 @@
     "serialize",
     "hash",
     "stringification",
-    "fast"
+    "fast",
+    "performance"
   ],
   "author": "Luca Gesmundo <lucagesmundo@yahoo.it>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lucagez/slow-json-stringify/issues"
+    "url": "https://github.com/DarkGL/slow-json-stringify/issues"
   },
-  "homepage": "https://github.com/lucagez/slow-json-stringify#readme",
+  "homepage": "https://github.com/DarkGL/slow-json-stringify#readme",
   "engines": {
     "node": ">=20.11.0"
   }
