@@ -1,3 +1,5 @@
+import type { AttrExecutable, AttrType, Serializer, SjsSerializer } from "./types.js";
+
 /**
  * `_find` is a super fast deep property finder.
  * It dynamically build the function needed to reach the desired
@@ -9,7 +11,7 @@
  *
  * @param {array} path - path to reach object property.
  */
-const _find = (path) => {
+const _find = (path: string[]) => {
     const { length } = path;
 
     let str = 'obj';
@@ -29,7 +31,7 @@ const _find = (path) => {
  * @param {array} array - Array to serialize.
  * @param {any} method - `sjs` serializer.
  */
-const _makeArraySerializer = (serializer) => {
+const _makeArraySerializer = (serializer): AttrExecutable => {
     if (serializer instanceof Function) {
         return (array) => {
             // Stringifying more complex array using the provided sjs schema
@@ -50,7 +52,10 @@ const _makeArraySerializer = (serializer) => {
 
 const TYPES = ['number', 'string', 'boolean', 'array', 'null'] as const
 
-const attr = (type: typeof TYPES[number], serializer: <T>(valueSerializer: T) => T | undefined) => {
+const attr: {
+    (type: 'array', serializer?: SjsSerializer): AttrExecutable;
+    (type: Exclude<AttrType, 'array'>, serializer?: Serializer): AttrExecutable;
+} = (type: AttrType, serializer?: Serializer): AttrExecutable => {
     if (!TYPES.includes(type)) {
         throw new Error(
             `Expected one of: "number", "string", "boolean", "null". received "${type}" instead`,
@@ -70,8 +75,8 @@ const attr = (type: typeof TYPES[number], serializer: <T>(valueSerializer: T) =>
 // => if no regex is provided, a default one will be used.
 const defaultRegex = /\n|\r|\t|\"|\\/gm;
 const escape =
-    (regex = defaultRegex) =>
-    (str) =>
+    (regex: RegExp = defaultRegex) =>
+    (str: string) =>
         str.replace(regex, (char) => '\\' + char);
 
 export { _find, escape, attr };

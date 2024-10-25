@@ -1,4 +1,5 @@
 import { _find } from './_utils.js';
+import type { PreparedSchema, SjsSchema } from './types.js';
 
 /**
  * @param {object} preparedSchema - schema already validated
@@ -6,12 +7,12 @@ import { _find } from './_utils.js';
  * @param {object} originalSchema - User provided schema
  * => contains array stringification serializers that are lost during preparation.
  */
-export default (preparedSchema, originalSchema) => {
+export default (preparedSchema: PreparedSchema, originalSchema: SjsSchema) => {
     const queue = [];
 
     // Defining a function inside an other function is slow.
     // However it's OK for this use case as the queue creation is not time critical.
-    (function scoped(obj, acc = []) {
+    (function scoped(obj: string, acc: string[] = []) {
         if (/__sjs/.test(obj)) {
             const usedAcc = Array.from(acc);
             const find = _find(usedAcc);

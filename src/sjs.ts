@@ -3,10 +3,11 @@ import _makeQueue from './_makeQueue.js';
 import _prepare from './_prepare.js';
 import _select from './_select.js';
 import { attr, escape, _find } from './_utils.js';
+import type { SjsSchema, SjsSerializer } from './types.js';
 
 // Doing a lot of preparation work before returning the final function responsible for
 // the stringification.
-const sjs = (schema) => {
+const sjs = (schema: SjsSchema): SjsSerializer => {
     const { preparedString, preparedSchema } = _prepare(schema);
 
     // Providing preparedSchema for univocal correspondence between created queue and chunks.
@@ -25,8 +26,11 @@ const sjs = (schema) => {
         // Ditching old implementation for a **MUCH** faster while
         let i = 0;
         while (true) {
-            if (i === length) break;
-            const { serializer, find } = queue[i];
+            if (i === length) {
+                break;
+            }
+            
+            const { serializer, find } = queue[i]!;
             const raw = find(obj);
 
             temp += selectChunk(serializer(raw), i);
@@ -34,7 +38,7 @@ const sjs = (schema) => {
             i += 1;
         }
 
-        const { flag, pure, prevUndef } = chunks[chunks.length - 1];
+        const { flag, pure, prevUndef } = chunks[chunks.length - 1]!;
 
         return temp + (flag ? prevUndef : pure);
     };

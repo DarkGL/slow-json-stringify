@@ -4,7 +4,7 @@
  * (used for building dynamic regex) needed for the preparation of
  * chunks used in different scenarios.
  */
-export default (str, queue) =>
+export default (str: string, queue) =>
     str
         // Matching prepared properties and replacing with target with or without
         // double quotes.
