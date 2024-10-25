@@ -13,7 +13,6 @@ const stringify = sjs({
     b: attr('array'),
     c: attr('array'),
   })),
-  asd: 1,
   x: {
     y: {
       z: attr('string')
@@ -39,4 +38,5 @@ console.log(stringify({
       asd: 'asd'
     }]
   }],
+  asd: 1,
 }));
