@@ -1,8 +1,5 @@
 dev/
-examples/
-test/
 benchmark/
 
-README.md
 benchmark.md
 sjs.svg
