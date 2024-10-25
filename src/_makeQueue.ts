@@ -1,4 +1,4 @@
-import { _find } from './_utils';
+import { _find } from './_utils.js';
 
 /**
  * @param {object} preparedSchema - schema already validated

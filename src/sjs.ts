@@ -1,8 +1,8 @@
-import _makeChunks from './_makeChunks';
-import _makeQueue from './_makeQueue';
-import _prepare from './_prepare';
-import _select from './_select';
-import { attr, escape, _find } from './_utils';
+import _makeChunks from './_makeChunks.js';
+import _makeQueue from './_makeQueue.js';
+import _prepare from './_prepare.js';
+import _select from './_select.js';
+import { attr, escape, _find } from './_utils.js';
 
 // Doing a lot of preparation work before returning the final function responsible for
 // the stringification.
