@@ -9,15 +9,17 @@
   "types": "index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "microbundle",
-    "build:dev": "microbundle watch",
-    "test": "npm run build && mocha --timeout 10000 --recursive test",
-    "ship": "rm -r dist && npm run build && npm publish",
-    "benchmark": "cd benchmark && sh run.sh",
-    "prepare": "husky",
+    "ci": "npm run build && npm run check && npm run check-exports",
     "lint": "npx @biomejs/biome lint --write ./src ./test",
     "format": "npx @biomejs/biome format --write ./src ./test",
-    "check": "npx @biomejs/biome check --write ./src ./test"
+    "check": "npx @biomejs/biome check --write ./src ./test",
+    "build": "tsc --build",
+    "prepare": "husky",
+    "test": "npm run build && mocha --timeout 10000 --recursive test",
+    "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
+    "local-release": "changeset version && changeset publish",
+    "prepublishOnly": "npm run ci",
+    "benchmark": "cd benchmark && sh run.sh"
   },
   "repository": {
     "type": "git",
