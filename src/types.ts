@@ -1,4 +1,4 @@
-import type { _makeQueue } from './_makeQueue.js';
+import { _makeQueue } from './_makeQueue.js';
 
 type JSONPrimitive = string | number | boolean | null;
 
@@ -41,7 +41,7 @@ type AttrExecutable = object;
  * type of AttrType. As the created template has a spot
  * to host the requested type.
  */
-type Serializer = (raw: any) => JSONPrimitive;
+type Serializer = (raw: any) => JSONPrimitive | undefined;
 
 type Queue = ReturnType<typeof _makeQueue>;
 

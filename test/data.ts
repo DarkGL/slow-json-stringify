@@ -1,4 +1,4 @@
-const { attr } = require('../dist/sjs');
+import { attr } from '../dist/sjs.js';
 
 const data = {
     0: {
@@ -246,4 +246,4 @@ const data = {
     },
 };
 
-module.exports = data;
+export { data }
