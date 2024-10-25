@@ -1,6 +1,6 @@
 # SJS
 
-The slowest stringifier in the known universe. Just kidding, it's the fastest (:
+The fastest JSON stringifier in the galaxy
 
 ## TOC
 
