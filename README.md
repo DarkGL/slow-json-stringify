@@ -1,11 +1,3 @@
-<p align="center">
-  <img src="sjs.svg" height="200px" alt="slow-json-stringify logo" />
-  <br>
-  <a href="https://www.npmjs.org/package/slow-json-stringify"><img src="https://img.shields.io/npm/v/slow-json-stringify.svg?style=flat" alt="npm"></a>
-  <img src="https://img.shields.io/badge/license-MIT-f1c40f.svg" alt="MIT">
-  <a href="https://unpkg.com/slow-json-stringify"><img src="https://img.badgesize.io/https://unpkg.com/slow-json-stringify/dist/sjs.js?compression=gzip" alt="gzip size"></a>
-</p>
-
 # SJS
 
 The slowest stringifier in the known universe. Just kidding, it's the fastest (:
