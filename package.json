@@ -29,7 +29,7 @@
     "@types/chai": "^5.0.0",
     "@types/chai-spies": "^1.0.6",
     "@types/mocha": "^10.0.9",
-    "@types/node": "^22.8.0",
+    "@types/node": "^22.8.1",
     "@types/sinon": "^17.0.3",
     "benchmark": "^2.1.4",
     "chai": "^5.1.2",

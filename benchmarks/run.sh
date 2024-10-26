@@ -1,4 +1,6 @@
-#!/bin/bash  
+#!/bin/bash
+
+RUNTIME="node"
 
 TITLE="
 # Benchmarks
@@ -13,31 +15,31 @@ Benchmarks performed on:
 echo "$TITLE"
 
 printf "## small-object \n\n"
-node small-object.js
+$RUNTIME small-object.js
 
 printf "## small-array \n\n"
-node small-array.js
+$RUNTIME small-array.js
 
 printf "## nested-props-short-text \n\n"
-node nested-props-short-text.js
+$RUNTIME nested-props-short-text.js
 
 printf "## much-props-short-text \n\n"
-node much-props-short-text.js
+$RUNTIME much-props-short-text.js
 
 printf "## much-props-big-text \n\n"
-node much-props-big-text.js
+$RUNTIME much-props-big-text.js
 
 printf "## big-text \n\n"
-node big-text.js
+$RUNTIME big-text.js
 
 printf "## big-array-short-text \n\n"
-node big-array-short-text.js
+$RUNTIME big-array-short-text.js
 
 printf "## big-array-long-text \n\n"
-node big-array-long-text.js
+$RUNTIME big-array-long-text.js
 
 printf "## big-array-long-number \n\n"
-node big-array-long-number.js
+$RUNTIME big-array-long-number.js
 
 printf "## undefined properties \n\n"
-node undef.js
+$RUNTIME undef.js
