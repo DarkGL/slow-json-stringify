@@ -15,7 +15,7 @@ const sjs = (schema: SjsSchema): SjsSerializer => {
     // during schema preparation => e.g. array stringification method.
     const queue = _makeQueue(preparedSchema, schema);
     const chunks = _makeChunks(preparedString, queue);
-    
+
     const chunkLength = chunks.length - 1;
     const queueLength = queue.length;
 

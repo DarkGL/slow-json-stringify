@@ -12,7 +12,7 @@
     "check": "npx @biomejs/biome check --write ./src ./test",
     "build": "tsc --build",
     "prepare": "husky",
-    "test": "npm run build && node --import tsx --test test/**/*test.ts",
+    "test": "npm run build && node --import tsx --test ./test/*test.ts",
     "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
     "local-release": "changeset version && changeset publish",
     "prepublishOnly": "npm run ci",
