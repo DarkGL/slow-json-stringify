@@ -15,7 +15,20 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"security": {
+				"noGlobalEval": "warn"
+			},
+			"style": {
+				"noNonNullAssertion": "warn"
+			},
+			"suspicious": {
+				"noExplicitAny": "warn",
+				"noShadowRestrictedNames": "warn"
+			},
+			"complexity": {
+				"noBannedTypes": "warn"
+			}
 		}
 	},
 	"javascript": {
@@ -30,5 +43,11 @@
 			"quoteStyle": "single",
 			"attributePosition": "auto"
 		}
+	},
+	"files": {
+		"include": [
+			"src/**/*.ts",
+			"test/**/*.ts"
+		]
 	}
 }

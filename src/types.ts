@@ -1,4 +1,4 @@
-import { _makeQueue } from './_makeQueue.js';
+import type { _makeQueue } from './_makeQueue.js';
 
 type JSONPrimitive = string | number | boolean | null;
 

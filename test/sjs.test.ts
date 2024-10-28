@@ -1,6 +1,6 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { sjs, escape, attr } from '../dist/sjs.js';
+import { test } from 'node:test';
+import { attr, escape, sjs } from '../dist/sjs.js';
 
 test('Should throw if unknown type is provided when defining a schema', () => {
     const schemaDefinition = () =>

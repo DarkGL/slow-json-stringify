@@ -1,5 +1,5 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { test } from 'node:test';
 import { sjs } from '../dist/sjs.js';
 import { data } from './data.js';
 
@@ -7,7 +7,7 @@ import { data } from './data.js';
  * Testing undefined property support with complex structures.
  */
 
-Object.keys(data).forEach((record) => {
+for (const record of Object.keys(data)) {
     const { schema, obj } = data[record];
     const stringify = sjs(schema);
 
@@ -17,4 +17,4 @@ Object.keys(data).forEach((record) => {
 
         assert.strictEqual(slow, native);
     });
-});
+}

@@ -76,6 +76,6 @@ const defaultRegex = /\n|\r|\t|\"|\\/gm;
 const escape =
     (regex: RegExp = defaultRegex) =>
     (str: string) =>
-        str.replace(regex, (char) => '\\' + char);
+        str.replace(regex, (char) => `\\${char}`);
 
 export { _find, escape, attr };

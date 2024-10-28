@@ -1,7 +1,7 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { test } from 'node:test';
 import sinon from 'sinon';
-import { sjs, attr } from '../dist/sjs.js';
+import { attr, sjs } from '../dist/sjs.js';
 import type { Serializer } from '../src/types.js';
 
 /**
@@ -11,7 +11,9 @@ import type { Serializer } from '../src/types.js';
 
 // Test case 1: Spy to track function calls
 test('invoke a function while serializing single property', () => {
-    function serializer(raw: any) { undefined }
+    function serializer(raw: any) {
+        undefined;
+    }
 
     const spySerializer = sinon.spy(serializer as Serializer);
 

@@ -3,7 +3,7 @@ import { _makeQueue } from './_makeQueue.js';
 import { _prepare } from './_prepare.js';
 import { _select } from './_select.js';
 import { attr, escape } from './_utils.js';
-import type { SjsSchema, SjsSerializer, Serializer } from './types.js';
+import type { Serializer, SjsSchema, SjsSerializer } from './types.js';
 
 // Doing a lot of preparation work before returning the final function responsible for
 // the stringification.
@@ -36,4 +36,4 @@ const sjs = (schema: SjsSchema): SjsSerializer => {
 };
 
 export { sjs, attr, escape };
-export type { Serializer }
+export type { Serializer };
