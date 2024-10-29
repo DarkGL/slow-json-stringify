@@ -1,5 +1,15 @@
 import type { Chunk, QueueItem } from './types.js';
 
+const _replaceString = ( type: string ) => type.includes('string') ? '"__par__"' : "__par__";
+
+// 3 possibilities after arbitrary property:
+// - ", => non-last string property
+// - , => non-last non-string property
+// - " => last string property
+const matchStartRe = /^(\"\,|\,|\")/;
+
+const _chunkRegex = /"\w+__sjs"/gm;
+
 /**
  * @param {string} str - prepared string already validated.
  * @param {array} queue - queue containing the property name to match
@@ -12,7 +22,7 @@ const _makeChunks = (str: string, queue: QueueItem[]): Chunk[] => {
             // Matching prepared properties and replacing with target with or without
             // double quotes.
             // => Avoiding unnecessary concatenation of doublequotes during serialization.
-            .replace(/"\w+__sjs"/gm, (type) => (/string/.test(type) ? '"__par__"' : '__par__'))
+            .replace(_chunkRegex, _replaceString)
             .split('__par__')
             .map((chunk, index, chunks) => {
                 // Using dynamic regex to ensure that only the correct property
@@ -27,12 +37,6 @@ const _makeChunks = (str: string, queue: QueueItem[]): Chunk[] => {
                 // If the chunk is the last one the `isUndef` case should match
                 // the preceding comma too.
                 const matchPropRe = new RegExp(isLast ? matchWhenLast : matchProp);
-
-                // 3 possibilities after arbitrary property:
-                // - ", => non-last string property
-                // - , => non-last non-string property
-                // - " => last string property
-                const matchStartRe = /^(\"\,|\,|\")/;
 
                 return {
                     // notify that the chunk preceding the current one has not
