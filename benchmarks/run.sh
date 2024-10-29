@@ -1,6 +1,14 @@
 #!/bin/bash
 
-RUNTIME="node"
+ENV_TYPE=$1
+
+if [ "$ENV_TYPE" = "NODE" ]; then
+    RUNTIME="node"
+elif [ "$ENV_TYPE" = "BUN" ]; then
+    RUNTIME="bun"
+else
+    RUNTIME="node"
+fi
 
 TITLE="
 # Benchmarks
