@@ -45,8 +45,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: npm install
+      - name: Install
         run: npm ci
+
+      - name: Build
+        run: npm run build
 
       - name: Benchmarks with node
         working-directory: ./benchmarks
@@ -72,6 +75,9 @@ jobs:
 
       - name: Install
         run: bun install
+      
+      - name: Build
+        run: bun run build
 
       - name: Benchmarks with bun
         working-directory: ./benchmarks
