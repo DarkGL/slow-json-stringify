@@ -27,9 +27,8 @@ const sjs = (schema: SjsSchema): SjsSerializer => {
 
         for (let i = 0; i < queueLength; ++i) {
             const { serializer, find } = queue[i]!;
-            const raw = find(obj);
 
-            temp += selectChunk(serializer(raw), i);
+            temp += selectChunk(serializer(find(obj)), i);
         }
 
         const { flag, pure, prevUndef } = chunks[chunkLength]!;
