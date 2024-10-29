@@ -9,7 +9,7 @@ type AttrType = 'string' | 'number' | 'boolean' | 'array' | 'null';
  *
  * Schema that describe the structure of your data.
  *
- * Usage: https://github.com/lucagez/slow-json-stringify#usage
+ * Usage: https://github.com/DarkGL/slow-json-stringify#usage
  */
 type SjsSchema = { [prop: string]: AttrExecutable | SjsSchema };
 

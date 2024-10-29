@@ -52,12 +52,18 @@
     "fast",
     "performance"
   ],
-  "author": "Luca Gesmundo <lucagesmundo@yahoo.it>",
+  "author": "Rafał Więcek <contact@darkgl.pl> (https://darkgl.pl/)",
+  "contributors": [
+    "Luca Gesmundo <lucagesmundo@yahoo.it>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/DarkGL/slow-json-stringify/issues"
   },
   "homepage": "https://github.com/DarkGL/slow-json-stringify#readme",
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=20.11.0"
   }
