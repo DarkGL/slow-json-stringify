@@ -49,7 +49,8 @@ jobs:
         run: npm ci
 
       - name: Benchmarks with node
-        run: ./benchmarks/run.sh NODE
+        working-directory: ./benchmarks
+        run: ./run.sh NODE
   build-bun:
     name: "Bun ${{ matrix.bun-version }}"
 
@@ -73,4 +74,5 @@ jobs:
         run: bun install
 
       - name: Benchmarks with bun
-        run: ./benchmarks/run.sh BUN
+        working-directory: ./benchmarks
+        run: ./run.sh BUN
