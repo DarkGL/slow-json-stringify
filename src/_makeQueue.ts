@@ -1,6 +1,8 @@
 import { _find } from './_utils.js';
 import type { JSONPrimitive, PreparedSchema, QueueItem, SjsSchema } from './types.js';
 
+const sjsRegex = /__sjs/;
+
 /**
  * @param {object} preparedSchema - schema already validated
  * with modified prop values to avoid clashes.
@@ -13,7 +15,7 @@ const _makeQueue = (preparedSchema: PreparedSchema, originalSchema: SjsSchema) =
     // Defining a function inside an other function is slow.
     // However it's OK for this use case as the queue creation is not time critical.
     (function scoped(obj: PreparedSchema | JSONPrimitive | undefined, acc: string[] = []) {
-        if (typeof obj === 'string' && /__sjs/.test(obj)) {
+        if (typeof obj === 'string' && sjsRegex.test(obj)) {
             const usedAcc = Array.from(acc);
             const find = _find(usedAcc);
             const { serializer } = find(originalSchema);

@@ -10,6 +10,8 @@ const matchStartRe = /^(\"\,|\,|\")/;
 
 const _chunkRegex = /"\w+__sjs"/gm;
 
+const isLastRegex = /^("}|})/;
+
 /**
  * @param {string} str - prepared string already validated.
  * @param {array} queue - queue containing the property name to match
@@ -32,7 +34,7 @@ const _makeChunks = (str: string, queue: QueueItem[]): Chunk[] => {
                 const matchWhenLast = `(\,?)${matchProp}`;
 
                 // Check if current chunk is the last one inside a nested property
-                const isLast = /^("}|})/.test(chunks[index + 1] || '');
+                const isLast = isLastRegex.test(chunks[index + 1] || '');
 
                 // If the chunk is the last one the `isUndef` case should match
                 // the preceding comma too.

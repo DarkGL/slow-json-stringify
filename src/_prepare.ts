@@ -7,10 +7,7 @@ import type { PreparedSchema, SjsSchema } from './types.js';
  * @param {object} schema - user provided schema
  */
 const _prepare = (schema: SjsSchema) => {
-    const preparedString = JSON.stringify(schema, (_, value) => {
-        if (!value.isSJS) return value;
-        return `${value.type}__sjs`;
-    });
+    const preparedString = JSON.stringify(schema, (_, value) => value.isSJS ? `${value.type}__sjs` : value);
 
     const preparedSchema = JSON.parse(preparedString) as PreparedSchema;
 
