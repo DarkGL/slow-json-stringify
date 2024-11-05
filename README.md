@@ -11,23 +11,21 @@ The fastest JSON stringifier
   - [How it works](#how-it-works)
   - [Caveats](#caveats)
   - [Benchmarks](#benchmarks)
-      - [Running the benchmarks](#running-the-benchmarks)
+    - [Running the benchmarks](#running-the-benchmarks)
       - [Test machine](#test-machine)
       - [Some numbers](#some-numbers)
   - [Usage](#usage)
-      - [Supported types](#supported-types)
+    - [Supported types](#supported-types)
       - [Defining a schema](#defining-a-schema)
       - [Defining schema with simple array](#defining-schema-with-simple-array)
       - [Defining schema with complex array](#defining-schema-with-complex-array)
       - [Defining schema with nested objects](#defining-schema-with-nested-objects)
   - [Serializers](#serializers)
   - [API](#api)
-      - [sjs](#sjs-1)
-      - [attr](#attr)
-      - [escape](#escape)
+    - [sjs](#sjs-1)
+    - [attr](#attr)
+    - [escape](#escape)
   - [License](#license)
-
-
 
 ## TL;DR
 
@@ -43,11 +41,13 @@ Checkout [benchmarks](benchmark.md).
 `SJS` is fully compatible with both Node.js and the browser 🎉🎉
 
 Node:
+
 ```bash
 npm install slow-json-stringify
 ```
 
 On the browser:
+
 ```html
 <script src="https://unpkg.com/slow-json-stringify/dist/sjs.umd.js"></script>
 ```
@@ -59,11 +59,13 @@ The traditional approach consists in serializing every property taken singularly
 `SJS` uses a different approach to serialization.
 
 **Preparation:**
+
 - A schema is provided
 - The schema is stringified
 - A templated string is built with the provided schema.
 
 **Serialization:**
+
 - Object values are inserted in the already built template.
 
 It is faster simply because it performs a lot less work.
@@ -80,10 +82,11 @@ Moreover, `SJS` makes possible the serialization of types that are not natively 
 However, `SJS` provides a little utility for your escaping needs.
 `escape` uses a default regex if no additional regex is provided.
 
-**default regex string:** 
+**default regex string:**
+
 ```javascript
 /\n|\r|\t|\"|\\/gm
-``` 
+```
 
 You can use `escape` like the following:
 
@@ -111,10 +114,11 @@ Lies, damned lies.. and benchmarks.
 Remember to test if `SJS` could be a real improvement for your use case.
 Because there are times when the performance advantages with the added drawbacks could not be worth it.
 
-#### Running the benchmarks
+### Running the benchmarks
 
 Every benchmark is replicable on your own machine.
 To run your tests:
+
 - Clone this repo.
 - Install dependencies.
 - `cd benchmark`.
@@ -124,6 +128,7 @@ To run your tests:
 #### Test machine
 
 The benchmarks were performed on a Dell Xps 15 9550.
+
 - **cpu:** intel i7 6700HQ
 - **ram:** 16gb
 - **os:** Ubuntu 18.04
@@ -134,7 +139,7 @@ Checkout benchmarks [here](benchmark.md)
 
 ## Usage
 
-#### Supported types
+### Supported types
 
 The schema creation happens thanks to the `attr` helper exported from the main bundle.
 
@@ -147,6 +152,7 @@ attr(type, serializer?)
 ```
 
 The `attr` helper natively supports the following types:
+
 - `string`
 - `number`
 - `boolean`
@@ -274,7 +280,7 @@ stringify({
 
 ## Serializers
 
-The `attr` helper accepts a serializer function. The serializer function gets invoked with the real value that should be stringified. 
+The `attr` helper accepts a serializer function. The serializer function gets invoked with the real value that should be stringified.
 
 ```bash
 serializer(rawValue)
@@ -338,18 +344,21 @@ const stringify = sjs({
 
 ## API
 
-#### sjs
+### sjs
+
 | param  | type    | required                           | default   | spec                                                |
 |--------|---------|------------------------------------|-----------|-----------------------------------------------------|
 | schema | object  | yes                                | undefined | Schema that defines the stringification behavior.   |
 
-#### attr
+### attr
+
 | param      | type     | required                           | default   | spec                                                   |
 |------------|----------|------------------------------------|-----------|--------------------------------------------------------|
 | type       | string   | yes                                | undefined | Type of the property.                                  |
 | serializer | function | no                                 | identity  | Function used for serializing / validating properties. |
 
-#### escape
+### escape
+
 | param | type               | required                           | default                   | spec                                                |
 |-------|--------------------|------------------------------------|---------------------------|-----------------------------------------------------|
 | regex | Regular Expression | no                                 | default regex | regex used to escape text                           |
