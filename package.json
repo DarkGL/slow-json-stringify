@@ -1,5 +1,5 @@
 {
-  "name": "slow-json-stringify",
+  "name": "@darkgl/slow-json-stringify",
   "version": "2.1.0",
   "description": "The fastest JSON stringifier",
   "main": "dist/sjs.js",

@@ -1,6 +1,6 @@
 import type { Chunk, QueueItem } from './types.js';
 
-const _replaceString = ( type: string ) => type.includes('string') ? '"__par__"' : "__par__";
+const _replaceString = (type: string) => (type.includes('string') ? '"__par__"' : '__par__');
 
 // 3 possibilities after arbitrary property:
 // - ", => non-last string property
