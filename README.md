@@ -1,6 +1,6 @@
 # SJS
 
-The fastest JSON stringifier in the galaxy
+The fastest JSON stringifier
 
 ## TOC
 

@@ -1,7 +1,7 @@
 {
   "name": "slow-json-stringify",
   "version": "2.1.0",
-  "description": "The fastest JSON stringifier in the galaxy",
+  "description": "The fastest JSON stringifier",
   "main": "dist/sjs.js",
   "types": "dist/sjs.d.ts",
   "type": "module",
