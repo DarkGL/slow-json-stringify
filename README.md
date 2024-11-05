@@ -43,7 +43,7 @@ Checkout [benchmarks](benchmark.md).
 Node:
 
 ```bash
-npm install slow-json-stringify
+npm i @darkgl/slow-json-stringify
 ```
 
 On the browser:
