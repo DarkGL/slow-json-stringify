@@ -1,6 +1,6 @@
 {
   "name": "@darkgl/slow-json-stringify",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "The fastest JSON stringifier",
   "main": "dist/sjs.js",
   "types": "dist/sjs.d.ts",
