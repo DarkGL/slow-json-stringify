@@ -38,18 +38,8 @@ Checkout [benchmarks](benchmark.md).
 
 ## Installation
 
-`SJS` is fully compatible with both Node.js and the browser 🎉🎉
-
-Node:
-
 ```bash
 npm i @darkgl/slow-json-stringify
-```
-
-On the browser:
-
-```html
-<script src="https://unpkg.com/slow-json-stringify/dist/sjs.umd.js"></script>
 ```
 
 ## How it works
